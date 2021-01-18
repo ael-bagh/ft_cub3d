@@ -6,7 +6,7 @@
 /*   By: ael-bagh <ael-bagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:13:45 by ael-bagh          #+#    #+#             */
-/*   Updated: 2021/01/05 19:09:06 by ael-bagh         ###   ########.fr       */
+/*   Updated: 2021/01/18 18:02:42 by ael-bagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,23 @@ void	init_sprite(void)
 	int w;
 	int h;
 
-	k = -1;
+	k = 0;
 	i = -1;
-	g_sp = malloc(sizeof(t_sprite) * (g_s_count));
+	g_sp = malloc(sizeof(t_sprite) * (g_s_count + 1));
 	if (!(g_si.img = mlx_xpm_file_to_image(g_vars.mlx, g_s, &w, &h)))
 		texture_error(5);
 	g_si.addr = mlx_get_data_addr(g_si.img, &g_si.bpp, &g_si.ll, &g_si.en);
-	while (g_map_array[++i] && (j = -1) && (k < g_s_count))
+	while (g_map_finished[++i] && (j = -1) && (k < g_s_count))
 	{
 		while (g_map_finished[i][++j] && (k < g_s_count))
-		{
-			if (g_map_finished[i][j] == '2' && (++k))
+			if (g_map_finished[i][j] == '2')
 			{
 				g_sp[k].x = (float)((j + 0.5) * 64);
 				g_sp[k].y = (float)((i + 0.5) * 64);
 				g_sp[k].dist = sqrtf(((g_sp[k].x) - g_p.x) * ((g_sp[k].x)
 					- g_p.x) + ((g_sp[k].y) - g_p.y) * ((g_sp[k].y) - g_p.y));
+				k++;
 			}
-		}
 	}
 }
 
@@ -74,11 +73,10 @@ void	to_sprite(void)
 {
 	float	angle;
 	int		k;
-	int		i;
 
 	k = -1;
-	i = 0;
 	to_sort();
+	angle = 0;
 	while (++k < g_s_count)
 	{
 		g_sp[k].dist = sqrtf(((g_sp[k].x) - g_p.x) * ((g_sp[k].x)

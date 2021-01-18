@@ -6,7 +6,7 @@
 /*   By: ael-bagh <ael-bagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 10:57:24 by ael-bagh          #+#    #+#             */
-/*   Updated: 2020/12/05 19:52:02 by ael-bagh         ###   ########.fr       */
+/*   Updated: 2021/01/17 15:30:46 by ael-bagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	get_s(char *line)
 	{
 		while (++re < c_w(line, ' '))
 		{
-			str = ft_strjoin(str, strdup(&par[re][0]));
+			str = ft_strjoin(str, ft_strdup(&par[re][0]));
 			if (re != c_w(line, ' ') - 1)
-				str = ft_strjoin(str, strdup(" "));
+				str = ft_strjoin(str, ft_strdup(" "));
 		}
 		if ((re = open(str, O_RDONLY) < 0))
 			texture_error(5);

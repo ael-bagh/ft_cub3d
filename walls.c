@@ -6,7 +6,7 @@
 /*   By: ael-bagh <ael-bagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 17:09:50 by ael-bagh          #+#    #+#             */
-/*   Updated: 2021/01/05 19:07:02 by ael-bagh         ###   ########.fr       */
+/*   Updated: 2021/01/17 14:22:59 by ael-bagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ int			assign_textures(int i)
 	l9lawi[2] = (int*)g_wt.addr;
 	l9lawi[3] = (int*)g_et.addr;
 	if (g_rays[i].is_up && !g_rays[i].hit_v)
-		dst = l9lawi[0][64 * g_col.yoff + g_col.xoff];
-	if (g_rays[i].is_left && g_rays[i].hit_v)
 		dst = l9lawi[1][64 * g_col.yoff + g_col.xoff];
+	if (g_rays[i].is_left && g_rays[i].hit_v)
+		dst = l9lawi[0][64 * g_col.yoff + g_col.xoff];
 	if (g_rays[i].is_down && !g_rays[i].hit_v)
-		dst = l9lawi[2][64 * g_col.yoff + g_col.xoff];
-	if (g_rays[i].is_right && g_rays[i].hit_v)
 		dst = l9lawi[3][64 * g_col.yoff + g_col.xoff];
+	if (g_rays[i].is_right && g_rays[i].hit_v)
+		dst = l9lawi[2][64 * g_col.yoff + g_col.xoff];
 	return (dst);
 }
 

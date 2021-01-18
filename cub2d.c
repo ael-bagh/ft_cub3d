@@ -6,7 +6,7 @@
 /*   By: ael-bagh <ael-bagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 17:37:03 by ael-bagh          #+#    #+#             */
-/*   Updated: 2021/01/06 18:52:11 by ael-bagh         ###   ########.fr       */
+/*   Updated: 2021/01/18 18:04:09 by ael-bagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ void		update(void)
 	float	newy;
 	float	move_step;
 
-	g_p.angle += g_p.turn * g_p.rspeed;
+	g_p.angle += (g_p.turn * g_p.rspeed);
 	move_step = g_p.walk * g_p.speed;
-	newx = g_p.x + cos(g_p.angle) * move_step;
-	newy = g_p.y + sin(g_p.angle) * move_step;
-	if (!has_wall(g_p.x, newy) && !has_sprite(g_p.x, newy))
+	newx = g_p.x + cos(g_p.angle + g_p.side) * (move_step);
+	newy = g_p.y + sin(g_p.angle + g_p.side) * (move_step);
+	if ((!has_wall(g_p.x, newy + 20)) && (!has_wall(g_p.x, newy - 20))
+		&& !has_sprite(g_p.x, newy))
 		g_p.y = newy;
-	if (!has_wall(newx, g_p.y) && !has_sprite(newx, g_p.y))
+	if ((!has_wall(newx + 20, g_p.y)) && (!has_wall(newx - 20, g_p.y))
+		&& !has_sprite(newx, g_p.y))
 		g_p.x = newx;
 }
 
@@ -37,8 +39,6 @@ void		render(void)
 	generatel9lawi();
 	to_sprite();
 	mlx_put_image_to_window(g_vars.mlx, g_vars.win, g_img.img, 0, 0);
-	if (g_save == 1)
-		save_bmp();
 	mlx_destroy_image(g_vars.mlx, g_img.img);
 }
 
@@ -52,6 +52,16 @@ int			key_press(int keycode)
 		g_p.turn = -1;
 	if (keycode == 2)
 		g_p.turn = 1;
+	if (keycode == 124)
+	{
+		g_p.side = M_PI_2;
+		g_p.walk = 1;
+	}
+	if (keycode == 123)
+	{
+		g_p.side = -M_PI_2;
+		g_p.walk = 1;
+	}
 	if (keycode == 53)
 	{
 		free(g_sp);
@@ -71,6 +81,16 @@ int			key_release(int keycode)
 		g_p.turn = 0;
 	if (keycode == 2)
 		g_p.turn = 0;
+	if (keycode == 123)
+	{
+		g_p.side = 0;
+		g_p.walk = 0;
+	}
+	if (keycode == 124)
+	{
+		g_p.side = 0;
+		g_p.walk = 0;
+	}
 	return (0);
 }
 

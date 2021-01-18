@@ -6,12 +6,11 @@
 /*   By: ael-bagh <ael-bagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 15:27:14 by ael-bagh          #+#    #+#             */
-/*   Updated: 2021/01/07 12:14:09 by ael-bagh         ###   ########.fr       */
+/*   Updated: 2021/01/17 15:49:13 by ael-bagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 void	arguments_errors(int error)
 {
@@ -21,6 +20,8 @@ void	arguments_errors(int error)
 		ft_putstr("Error:\nthe second argument must be --save");
 	if (error == 3)
 		ft_putstr("Error:\nwrong number of parameters");
+	if (error == 4)
+		ft_putstr("Error:\nwrong config file");
 	exit(0);
 }
 
@@ -36,7 +37,7 @@ void	arguments(int argc, char *argv[])
 			g_file = ft_strdup(argv[1]);
 		else
 			arguments_errors(1);
-		if (!strcmp(argv[2], "--save"))
+		if (!ft_strncmp(argv[2], "--save", 7))
 			g_save = 1;
 		else
 			arguments_errors(2);
@@ -56,16 +57,15 @@ void	arguments(int argc, char *argv[])
 int		readline(void)
 {
 	int		fd;
+	int		ret;
 	char	*line;
 
 	if ((fd = open(g_file, O_RDONLY)) < 0)
-	{
-		ft_putstr("Error:\nwrong config file");
-		exit(0);
-	}
+		arguments_errors(4);
 	global_init();
-	while (get_next_line(fd, &line))
+	while (1)
 	{
+		ret = get_next_line(fd, &line);
 		if (!all_params())
 		{
 			if (*line != '\0')
@@ -73,6 +73,8 @@ int		readline(void)
 		}
 		else
 			routing(line);
+		if (ret == 0)
+			break ;
 		free(line);
 	}
 	free(line);
@@ -109,7 +111,6 @@ void	routing(char *line)
 int		main(int argc, char *argv[])
 {
 	g_save = 0;
-	g_file = ft_strdup("");
 	arguments(argc, argv);
 	readline();
 	manage_map();
@@ -120,9 +121,16 @@ int		main(int argc, char *argv[])
 	map_manager();
 	if (g_p.x == 0 && g_p.y == 0)
 		error_redirect(3);
+	free(g_map);
 	g_vars.mlx = mlx_init();
 	g_vars.win = mlx_new_window(g_vars.mlx, g_width, g_height, "Bismilah!");
 	init_sprite();
+	if (g_save == 1)
+	{
+		render();
+		save_bmp();
+		ft_quit();
+	}
 	mlx_loop_hook(g_vars.mlx, move, 0);
 	mlx_loop(g_vars.mlx);
 }

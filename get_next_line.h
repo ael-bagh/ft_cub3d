@@ -6,7 +6,7 @@
 /*   By: ael-bagh <ael-bagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 17:17:29 by ael-bagh          #+#    #+#             */
-/*   Updated: 2021/01/06 19:31:08 by ael-bagh         ###   ########.fr       */
+/*   Updated: 2021/01/18 17:26:21 by ael-bagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <mlx.h>
 # define BUFFER_SIZE 10000
 # define FLT_MAX 3.402823e+38
+# define MAX_INT 2147483647
 
 int				g_tile_size;
 int				g_width;
@@ -97,7 +98,7 @@ char			*ft_strjoi(char *s1, char *s2);
 int				begins_by_nl(char **maptab);
 void			mapcheck(char **maptab);
 void			wrong_file(char *file, int type);
-int				wrong_resolution(int width, int height);
+int				wrong_resolution(long long width, long long height);
 void			get_resolution(int width, int height);
 void			check_crgb(char **colors, int cc, int cw);
 void			check_frgb(char **colors, int cc, int cw);
@@ -110,6 +111,8 @@ void			init_sprite(void);
 void			to_sort(void);
 void			to_sprite(void);
 void			draw_sprite(int id);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+int				ft_atoi(const char *str);
 
 typedef struct	s_player {
 	float		x;
@@ -117,6 +120,7 @@ typedef struct	s_player {
 	float		fov;
 	int			turn;
 	int			walk;
+	float		side;
 	float		angle;
 	float		speed;
 	float		rspeed;

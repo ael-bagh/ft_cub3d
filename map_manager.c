@@ -6,11 +6,12 @@
 /*   By: ael-bagh <ael-bagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 11:46:48 by ael-bagh          #+#    #+#             */
-/*   Updated: 2021/01/05 12:59:59 by ael-bagh         ###   ########.fr       */
+/*   Updated: 2021/01/18 17:55:39 by ael-bagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 void		player_init(char c, int x, int y)
 {
@@ -36,7 +37,7 @@ void		player_init(char c, int x, int y)
 		g_p.fov = 60 * (M_PI / 180);
 		g_p.turn = 0;
 		g_p.walk = 0;
-		g_p.speed = 8;
+		g_p.speed = 12;
 		g_p.rspeed = 4 * (M_PI / 180);
 	}
 }
@@ -71,6 +72,7 @@ void		map_manager(void)
 	map_closed(map_array);
 	sedat_madame(map_array);
 	g_map_finished = map_array;
+	freethenipples(g_map_array);
 }
 
 void		map_closed(char **map)

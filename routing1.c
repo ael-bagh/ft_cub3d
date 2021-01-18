@@ -6,7 +6,7 @@
 /*   By: ael-bagh <ael-bagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 15:40:10 by ael-bagh          #+#    #+#             */
-/*   Updated: 2020/12/05 19:59:10 by ael-bagh         ###   ########.fr       */
+/*   Updated: 2021/01/17 15:55:42 by ael-bagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	get_re(char *line)
 		exit(0);
 	}
 	if (str_is_digits(&par[1][0]) && str_is_digits(&par[2][0]))
-		wrong_resolution(atoi(&par[1][0]), atoi(&par[2][0]));
+		wrong_resolution(ft_atoi(&par[1][0]), ft_atoi(&par[2][0]));
 	else
 	{
 		ft_putstr("Error:\nwrong resolution!");
@@ -54,9 +54,9 @@ void	get_no(char *line)
 	{
 		while (++re < c_w(line, ' '))
 		{
-			str = ft_strjoin(str, strdup(&par[re][0]));
+			str = ft_strjoin(str, ft_strdup(&par[re][0]));
 			if (re != c_w(line, ' ') - 1)
-				str = ft_strjoin(str, strdup(" "));
+				str = ft_strjoin(str, ft_strdup(" "));
 		}
 		if ((re = open(str, O_RDONLY) <= 0))
 			texture_error(1);
@@ -112,9 +112,9 @@ void	get_we(char *line)
 	{
 		while (++re < c_w(line, ' '))
 		{
-			str = ft_strjoin(str, strdup(&par[re][0]));
+			str = ft_strjoin(str, ft_strdup(&par[re][0]));
 			if (re != c_w(line, ' ') - 1)
-				str = ft_strjoin(str, strdup(" "));
+				str = ft_strjoin(str, ft_strdup(" "));
 		}
 		if ((re = open(str, O_RDONLY) <= 0))
 			texture_error(3);
@@ -141,9 +141,9 @@ void	get_ea(char *line)
 	{
 		while (++re < c_w(line, ' '))
 		{
-			str = ft_strjoin(str, strdup(&par[re][0]));
+			str = ft_strjoin(str, ft_strdup(&par[re][0]));
 			if (re != c_w(line, ' ') - 1)
-				str = ft_strjoin(str, strdup(" "));
+				str = ft_strjoin(str, ft_strdup(" "));
 		}
 		if ((re = open(str, O_RDONLY) <= 0))
 			texture_error(4);

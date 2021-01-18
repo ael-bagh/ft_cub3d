@@ -6,7 +6,7 @@
 /*   By: ael-bagh <ael-bagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 14:58:07 by ael-bagh          #+#    #+#             */
-/*   Updated: 2021/01/06 18:35:33 by ael-bagh         ###   ########.fr       */
+/*   Updated: 2021/01/17 15:03:05 by ael-bagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		write_colors(int fd)
 		ft_putstr("Error:\nscreenshot issue");
 		exit(0);
 	}
-	while (i < g_bmp.imagesize / 4)
+	while (i < (int)(g_bmp.imagesize / 4))
 	{
 		colors[j++] = color[i] & 255;
 		colors[j++] = (color[i] & 255 << 8) >> 8;
